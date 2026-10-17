@@ -1,0 +1,22 @@
+# DigitalOcean App Platform spec — deploy with: doctl apps create --spec .do/app.yaml
+name: listingsmith
+region: blr
+services:
+  - name: web
+    dockerfile_path: Dockerfile
+    github:
+      repo: YOUR_GITHUB_USER/listingsmith
+      branch: main
+      deploy_on_push: true
+    http_port: 8080
+    instance_size_slug: apps-s-1vcpu-0.5gb
+    instance_count: 1
+    health_check:
+      http_path: /
+    envs:
+      - key: DIGITALOCEAN_GENAI_API_KEY
+        scope: RUN_TIME
+        type: SECRET
+      - key: DIGITALOCEAN_GENAI_BASE_URL
+        scope: RUN_TIME
+        value: https://inference.do-ai.run/v1
