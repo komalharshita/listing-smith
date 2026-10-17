@@ -12,3 +12,4 @@
 ## Project rules
 - AI calls go through `src/lib/listing.functions.ts`: built-in AI Gateway by default (`gateway.server.ts`), or any OpenAI-compatible endpoint (DigitalOcean) for open-weight models — keeps models swappable.
 - Prompt building and output parsing live in pure `src/lib/listing-pipeline.ts` — so marketplace rules stay unit-testable.
+- Marketplace cost estimates use pure calculations in `src/lib/listing-costs.ts` and editable per-platform fee defaults; bind the calculator to the generated listing's marketplace so later input changes cannot misprice it.
