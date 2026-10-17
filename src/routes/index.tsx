@@ -151,7 +151,7 @@ function Index() {
           </div>
 
           <div>
-            <label className="stamp flex items-center gap-1.5 text-muted-foreground"><Cpu className="size-3.5" /> Open-weight model</label>
+            <label className="stamp flex items-center gap-1.5 text-muted-foreground"><Cpu className="size-3.5" /> AI model</label>
             <div className="mt-2 grid gap-2 sm:grid-cols-2">
               {OPEN_MODELS.map((m) => (
                 <button
@@ -175,7 +175,7 @@ function Index() {
             {loading ? "Forging your listing…" : "Write my listing"}
           </button>
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Lock className="size-3" /> Notes go only to your own DigitalOcean endpoint — nothing is stored.
+            <Lock className="size-3" /> Your notes are never stored.
           </p>
         </div>
 
