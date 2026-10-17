@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { Check, Copy, Cpu, Hammer, Loader2, Lock, Sparkles as _unused, Tag, Wand2 } from "lucide-react";
+import { Check, Copy, Cpu, Hammer, Loader2, Lock, Tag, Wand2 } from "lucide-react";
 import { generateListing } from "@/lib/listing.functions";
 import { OPEN_MODELS, type Listing, type Platform, type Tone } from "@/lib/listing-pipeline";
 
@@ -18,7 +18,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-void _unused;
 
 const SAMPLE =
   "Hand-thrown stoneware mug, ~350ml, speckled oat glaze with a rust rim. Made in my Pune studio. Dishwasher safe, not microwave. Each one slightly different. Ships in recycled packaging.";
