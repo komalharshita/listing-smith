@@ -18,11 +18,12 @@ export interface CostInput {
   advertisingPercent: number;
 }
 
-// US, single-item order estimates; sellers can override every rate.
+// Single-item order estimates; flat fees are rupee equivalents of the US dollar
+// rates (~₹90 per US$) so estimates read in INR. Sellers can override every rate.
 export function defaultFees(platform: Platform, orderTotal: number): FeeRates {
   return platform === "etsy"
-    ? { listing: 0.2, transactionPercent: 6.5, processingPercent: 3, orderFee: 0.25 }
-    : { listing: 0, transactionPercent: 13.6, processingPercent: 0, orderFee: orderTotal <= 10 ? 0.3 : 0.4 };
+    ? { listing: 18, transactionPercent: 6.5, processingPercent: 3, orderFee: 22 }
+    : { listing: 0, transactionPercent: 13.6, processingPercent: 0, orderFee: orderTotal <= 900 ? 27 : 36 };
 }
 
 const amount = (value: number) => Number.isFinite(value) ? Math.max(0, value) : 0;

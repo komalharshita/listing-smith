@@ -6,12 +6,12 @@ import { calculateCosts, defaultFees, type CostInput, type FeeRates } from "@/li
 import type { Platform } from "@/lib/listing-pipeline";
 
 const INITIAL: CostInput = { salePrice: 0, shippingCharged: 0, productCost: 0, shippingCost: 0, packagingCost: 0, buyerTax: 0, otherCosts: 0, advertisingPercent: 0 };
-const money = (value: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+const money = (value: number) => new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(value);
 
 function AmountField({ label, value, onChange, percent = false }: { label: string; value: number; onChange: (value: number) => void; percent?: boolean }) {
   const id = useId();
   return <div className="min-w-0">
-    <label htmlFor={id} className="text-xs text-muted-foreground">{label} {percent ? "(%)" : "(USD)"}</label>
+    <label htmlFor={id} className="text-xs text-muted-foreground">{label} {percent ? "(%)" : "(₹)"}</label>
     <Input id={id} type="number" min="0" step="0.01" max={percent ? 100 : undefined} value={value || ""} placeholder="0.00"
       onChange={(event) => onChange(Math.max(0, Math.min(percent ? 100 : Infinity, Number(event.target.value) || 0)))} className="mt-1 bg-background" />
   </div>;
@@ -29,7 +29,7 @@ export function ListingCostCalculator({ platform }: { platform: Platform }) {
   return <section aria-label={`${name} cost calculator`} className="rounded-lg border bg-paper p-5">
     <div className="flex items-center justify-between gap-3">
       <h2 className="flex items-center gap-2 text-xl font-semibold"><Calculator className="size-5 text-primary" /> Profit estimate</h2>
-      <span className="stamp text-muted-foreground">{name} · USD</span>
+      <span className="stamp text-muted-foreground">{name} · INR</span>
     </div>
     <div className="mt-5 grid grid-cols-2 gap-3">
       <AmountField label="Sale price" value={input.salePrice} onChange={(v) => update("salePrice", v)} />
@@ -42,7 +42,7 @@ export function ListingCostCalculator({ platform }: { platform: Platform }) {
     <details className="mt-4 border-y py-3">
       <summary className="cursor-pointer text-sm font-medium">Fee assumptions & extras</summary>
       <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-        US baseline, one item per order. {platform === "etsy" ? "Etsy Payments: 6.5% transaction + 3% processing + $0.25, with a $0.20 listing fee." : "Non-Store, most categories: 13.6% final value fee + $0.30 for orders up to $10, otherwise $0.40. Insertion fee defaults to $0 within the free allowance."}
+        Rupee estimates, one item per order; flat fees approximate the US dollar rates (~₹90 per US$). {platform === "etsy" ? "Etsy Payments: 6.5% transaction + 3% processing + ₹22 fixed, with an ₹18 listing fee." : "Non-Store, most categories: 13.6% final value fee + ₹27 for orders up to ₹900, otherwise ₹36. Insertion fee defaults to ₹0 within the free allowance."}
         {" "}Rates vary by country, category and account. Adjust to your seller agreement.
       </p>
       <div className="mt-3 grid grid-cols-2 gap-3">
