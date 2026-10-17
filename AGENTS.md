@@ -10,5 +10,5 @@
 <!-- LOVABLE:END -->
 
 ## Project rules
-- AI calls go through `src/lib/listing.functions.ts` to an OpenAI-compatible endpoint (DigitalOcean GenAI by default) — keeps models swappable and open-weight.
+- AI calls go through `src/lib/listing.functions.ts`: built-in AI Gateway by default (`gateway.server.ts`), or any OpenAI-compatible endpoint (DigitalOcean) for open-weight models — keeps models swappable.
 - Prompt building and output parsing live in pure `src/lib/listing-pipeline.ts` — so marketplace rules stay unit-testable.
