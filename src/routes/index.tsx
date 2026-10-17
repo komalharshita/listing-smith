@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Check, Copy, Cpu, Hammer, Loader2, Lock, Tag, Wand2 } from "lucide-react";
 import { generateListing } from "@/lib/listing.functions";
 import { OPEN_MODELS, type Listing, type Platform, type Tone } from "@/lib/listing-pipeline";
+import { ListingCostCalculator } from "@/components/listing-cost-calculator";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,13 +53,16 @@ function Index() {
   const [model, setModel] = useState<string>(OPEN_MODELS[0].id);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [resultPlatform, setResultPlatform] = useState<Platform>("etsy");
   const [result, setResult] = useState<{ listing: Listing; meta: { model: string; ms: number; tokens: number | null } } | null>(null);
 
   async function run() {
     setLoading(true);
     setError(null);
     try {
-      setResult(await gen({ data: { notes, platform, tone, price: price || undefined, model } }));
+      const generated = await gen({ data: { notes, platform, tone, price: price || undefined, model } });
+      setResult(generated);
+      setResultPlatform(platform);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong");
     } finally {
@@ -236,6 +240,7 @@ function Index() {
               </div>
             </>
           )}
+          <ListingCostCalculator key={l ? resultPlatform : platform} platform={l ? resultPlatform : platform} />
         </div>
       </main>
 
