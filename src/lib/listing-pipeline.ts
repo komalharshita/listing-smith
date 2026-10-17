@@ -6,7 +6,7 @@ export interface ListingInput {
   notes: string;
   platform: Platform;
   tone: Tone;
-  price?: string;
+  price?: string | undefined;
   model: string;
 }
 
@@ -66,18 +66,18 @@ export function parseListing(raw: string, platform: Platform): Listing {
     throw new Error("The model returned malformed output. Try again.");
   }
   const r = PLATFORM_RULES[platform];
-  const tags = Array.isArray(obj.tags) ? obj.tags : [];
+  const tags = Array.isArray(obj["tags"]) ? obj["tags"] : [];
   const seen = new Set<string>();
   const cleanTags = tags
     .map((t) => str(t).toLowerCase().slice(0, r.tagCharMax).trim())
     .filter((t) => t && !seen.has(t) && seen.add(t))
     .slice(0, r.tagMax);
   return {
-    title: str(obj.title).slice(0, r.titleMax),
-    description: str(obj.description),
-    bullets: (Array.isArray(obj.bullets) ? obj.bullets : []).map(str).filter(Boolean).slice(0, 6),
+    title: str(obj["title"]).slice(0, r.titleMax),
+    description: str(obj["description"]),
+    bullets: (Array.isArray(obj["bullets"]) ? obj["bullets"] : []).map(str).filter(Boolean).slice(0, 6),
     tags: cleanTags,
-    priceSuggestion: str(obj.priceSuggestion),
-    seoNotes: str(obj.seoNotes),
+    priceSuggestion: str(obj["priceSuggestion"]),
+    seoNotes: str(obj["seoNotes"]),
   };
 }
