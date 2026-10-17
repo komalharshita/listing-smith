@@ -19,7 +19,10 @@ export interface Listing {
   seoNotes: string;
 }
 
+export const GATEWAY_MODEL_ID = "lovable-ai";
+
 export const OPEN_MODELS = [
+  { id: GATEWAY_MODEL_ID, label: "Lovable AI", vendor: "Built in · no key needed" },
   { id: "llama3.3-70b-instruct", label: "Llama 3.3 70B", vendor: "Meta · open-weight" },
   { id: "mistral-nemo-instruct-2407", label: "Mistral Nemo 12B", vendor: "Mistral · Apache 2.0" },
   { id: "deepseek-r1-distill-llama-70b", label: "DeepSeek R1 Distill 70B", vendor: "DeepSeek · MIT" },
